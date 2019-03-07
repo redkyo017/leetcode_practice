@@ -1,12 +1,13 @@
 package main
 
 import (
-	"log"
 	"strconv"
+	"strings"
 )
 
 func intToRoman(num int) string {
 	m := map[int]string{
+		0:    "",
 		1:    "I",
 		2:    "II",
 		3:    "III",
@@ -26,8 +27,8 @@ func intToRoman(num int) string {
 		900:  "CM",
 		1000: "M",
 	}
-	log.Println(m)
 
+	result := []string{}
 	numString := strconv.Itoa(num)
 	for len(numString) > 0 {
 		trunk := ""
@@ -40,7 +41,43 @@ func intToRoman(num int) string {
 		}
 
 		trunkNum, _ := strconv.Atoi(trunk)
-		log.Println(trunkNum/1000, trunkNum%1000)
+		str := ""
+
+		mod := trunkNum % 10
+		str = str + m[mod]
+
+		trunkNum = trunkNum / 10
+		if trunkNum <= 0 {
+			continue
+		}
+
+		mod = trunkNum % 10
+		if mod == 9 {
+			str = "XC" + str
+		} else {
+			str = str + m[mod] + "X"
+		}
+
+		trunkNum = trunkNum / 10
+		if trunkNum <= 0 {
+			continue
+		}
+
+		mod = trunkNum % 10
+		if mod == 9 {
+			str = "CM" + str
+		} else {
+			str = str + m[mod] + "C"
+		}
+
+		trunkNum = trunkNum / 10
+		if trunkNum <= 0 {
+			continue
+		} else {
+			str = str + m[mod] + "M"
+		}
+
+		result = append(result, str)
 	}
-	return ""
+	return strings.Join(result, ",")
 }

@@ -44,37 +44,46 @@ func intToRoman(num int) string {
 		str := ""
 
 		mod := trunkNum % 10
-		str = str + m[mod]
+		str = m[mod] + str
 
 		trunkNum = trunkNum / 10
 		if trunkNum <= 0 {
+			result = append(result, str)
 			continue
 		}
 
 		mod = trunkNum % 10
 		if mod == 9 {
 			str = "XC" + str
+		} else if mod == 5 {
+			str = "L" + str
 		} else {
-			str = str + m[mod] + "X"
+			str = m[mod] + "X" + str
 		}
 
 		trunkNum = trunkNum / 10
 		if trunkNum <= 0 {
+			result = append(result, str)
 			continue
 		}
 
 		mod = trunkNum % 10
 		if mod == 9 {
 			str = "CM" + str
+		} else if mod == 5 {
+			str = "D" + str
 		} else {
-			str = str + m[mod] + "C"
+			str = m[mod] + "C" + str
 		}
 
 		trunkNum = trunkNum / 10
 		if trunkNum <= 0 {
+			result = append(result, str)
 			continue
+		} else if trunkNum == 1 {
+			str = "M" + str
 		} else {
-			str = str + m[mod] + "M"
+			str = m[trunkNum] + "M" + str
 		}
 
 		result = append(result, str)

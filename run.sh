@@ -1,3 +1,3 @@
 export GOPATH=`pwd`
 
-go run main.go
+go run *.go

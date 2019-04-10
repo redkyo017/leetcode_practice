@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"sort"
 )
 
@@ -9,27 +8,26 @@ func fourSum(nums []int, target int) [][]int {
 	result := [][]int{}
 	sort.Ints(nums)
 
-	for j := 0; j < len(nums)-3; j++ {
-		if j == 0 || (j > 0 && nums[j] != nums[j-1]) || nums[j] == 0 {
-			for i := j + 1; i < len(nums)-2; i++ {
-				// if i == 0 || (i > 0 && nums[i] != nums[i-1]) {
-				log.Println(j, i, nums[j], nums[i])
-				if nums[i] == 0 || nums[i] != nums[i-1] {
+	for i := 0; i < len(nums)-3; i++ {
+		if i == 0 || (i > 0 && nums[i] != nums[i-1]) {
+			for j := len(nums) - 1; j > 2; j-- {
+				if j == len(nums)-1 || (j < len(nums)-1 && nums[j] != nums[j+1]) {
 					lo := i + 1
-					hi := len(nums) - 1
+					hi := j - 1
 					sum := target - (nums[i] + nums[j])
-					log.Println(nums[i], nums[j], sum)
-
 					for lo < hi {
 						if nums[lo]+nums[hi] == sum {
-							log.Println(nums[i], nums[j], nums[lo], nums[hi])
-							result = append(result, []int{nums[j], nums[i], nums[lo], nums[hi]})
-							// for lo < hi && nums[lo] == nums[lo+1] {
-							// 	lo++
-							// }
-							// for lo < hi && nums[hi] == nums[hi-1] {
-							// 	hi--
-							// }
+							// log.Println(nums)
+							// log.Println(i, lo, hi, j)
+							// log.Println(nums[i], nums[lo], nums[hi], nums[j])
+							// log.Println("---------")
+							result = append(result, []int{nums[i], nums[lo], nums[hi], nums[j]})
+							for lo < hi && nums[lo] == nums[lo+1] {
+								lo++
+							}
+							for lo < hi && nums[hi] == nums[hi-1] {
+								hi--
+							}
 							lo++
 							hi--
 						} else if nums[lo]+nums[hi] < sum {
@@ -42,7 +40,7 @@ func fourSum(nums []int, target int) [][]int {
 			}
 		}
 	}
-
+	// log.Println("length:", len(result))
 	return result
 }
 
@@ -66,4 +64,19 @@ func fourSum(nums []int, target int) [][]int {
 // 	[-2,-1,1,2],
 // 	[-2,0,0,2],
 // 	[-1,0,0,1]
+// ]
+
+// [-5,5,4,-3,0,0,4,-2], 4
+// [
+//	[-5,0,4,5],
+//	[-3,-2,4,5]
+// ]
+
+// [5,5,3,5,1,-5,1,-2], 4
+// [[-5,1,3,5]]
+
+// [-1,-5,-5,-3,2,5,0,4], -7
+// [
+//	[-5,-5,-1,4],
+//	[-5,-3,-1,2]
 // ]

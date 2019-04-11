@@ -9,16 +9,16 @@ import "log"
  *     Next *ListNode
  * }
  */
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+// type ListNode struct {
+// 	Val  int
+// 	Next *ListNode
+// }
 
-var node5 = ListNode{5, nil}
-var node4 = ListNode{4, &node5}
-var node3 = ListNode{3, &node4}
-var node2 = ListNode{2, nil}
-var node1 = ListNode{1, &node2}
+// var node5 = ListNode{5, nil}
+// var node4 = ListNode{4, &node5}
+// var node3 = ListNode{3, &node4}
+// var node2 = ListNode{2, nil}
+// var node1 = ListNode{1, &node2}
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	dum := ListNode{}

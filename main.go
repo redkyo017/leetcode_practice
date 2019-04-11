@@ -3,5 +3,6 @@ package main
 import "log"
 
 func main() {
-	log.Println(reverse(32768))
+
+	log.Println(mergeTwoLists(&node1, &node6))
 }

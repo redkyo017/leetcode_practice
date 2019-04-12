@@ -4,5 +4,5 @@ import "log"
 
 func main() {
 
-	log.Println(mergeTwoLists(&node1, &node6))
+	log.Println(generateParenthesis(3))
 }

@@ -4,5 +4,5 @@ import "log"
 
 func main() {
 
-	log.Println(generateParenthesis(3))
+	log.Println(levelOrder(&rootNode))
 }

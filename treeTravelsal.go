@@ -77,11 +77,29 @@ func postorderTraversal(root *TreeNode) []int {
 
 func levelOrder(root *TreeNode) [][]int {
 	result := [][]int{}
-	// level := 0
+	if root == nil {
+		return result
+	}
+	Q := []*TreeNode{}
+	Q = append(Q, root)
+	for len(Q) > 0 {
+		lenQ := len(Q)
+		currentlistVal := []int{}
+		for i := 0; i < lenQ; i++ {
+			currentNode := Q[0]
+			if currentNode != nil {
+				currentlistVal = append(currentlistVal, currentNode.Val)
+				if currentNode.Left != nil {
+					Q = append(Q, currentNode.Left)
+				}
+				if currentNode.Right != nil {
+					Q = append(Q, currentNode.Right)
+				}
+			}
+			Q = Q[1:]
+		}
 
-	for root != nil {
-		res := []int{root.Val}
-		result = append(result, res)
+		result = append(result, currentlistVal)
 	}
 
 	return result

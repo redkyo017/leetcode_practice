@@ -1,5 +1,9 @@
 package main
 
+import (
+	"math"
+)
+
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {
@@ -103,4 +107,45 @@ func levelOrder(root *TreeNode) [][]int {
 	}
 
 	return result
+}
+
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	left_height := maxDepth(root.Left)
+	right_height := maxDepth(root.Right)
+
+	return int(math.Max(float64(left_height), float64(right_height))) + 1
+	// return 0
+}
+
+func isMirror(node1 *TreeNode, node2 *TreeNode) bool {
+	if node1 == nil && node2 == nil {
+		return true
+	}
+	if node1 != nil && node2 != nil && node1.Val == node2.Val {
+		return isMirror(node1.Left, node2.Right) && isMirror(node1.Right, node2.Left)
+	}
+	return false
+}
+func isSymmetric(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	return isMirror(root.Left, root.Right)
+}
+
+func hasPathSum(root *TreeNode, sum int) bool {
+	if root == nil {
+		return false
+	}
+
+	sum -= root.Val
+
+	if sum == 0 && root.Left == nil && root.Right == nil {
+		return true
+	}
+
+	return hasPathSum(root.Left, sum) || hasPathSum(root.Right, sum)
 }

@@ -19,10 +19,20 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-var treenode5 = TreeNode{7, nil, nil}
-var treenode4 = TreeNode{15, nil, nil}
-var treenode3 = TreeNode{20, &treenode4, &treenode5}
-var treenode2 = TreeNode{9, nil, nil}
+// var treenode5 = TreeNode{7, nil, nil}
+// var treenode4 = TreeNode{15, nil, nil}
+// var treenode3 = TreeNode{20, &treenode4, &treenode5}
+// var treenode2 = TreeNode{9, nil, nil}
+// var rootNode = TreeNode{3, &treenode2, &treenode3}
+
+var treenode9 = TreeNode{8, nil, nil}
+var treenode8 = TreeNode{0, nil, nil}
+var treenode7 = TreeNode{4, nil, nil}
+var treenode6 = TreeNode{7, nil, nil}
+var treenode5 = TreeNode{2, &treenode6, &treenode7}
+var treenode4 = TreeNode{6, nil, nil}
+var treenode3 = TreeNode{1, &treenode8, &treenode9}
+var treenode2 = TreeNode{5, &treenode4, &treenode5}
 var rootNode = TreeNode{3, &treenode2, &treenode3}
 
 func preorderTraversal(root *TreeNode) []int {
@@ -49,11 +59,12 @@ func inorderTraversal(root *TreeNode) []int {
 			result = append(result, inorderTraversal(root.Left)...)
 		}
 
+		result = append(result, root.Val)
+
 		if root.Right != nil {
 			result = append(result, inorderTraversal(root.Right)...)
 		}
 
-		result = append(result, root.Val)
 	}
 
 	return result
@@ -148,4 +159,63 @@ func hasPathSum(root *TreeNode, sum int) bool {
 	}
 
 	return hasPathSum(root.Left, sum) || hasPathSum(root.Right, sum)
+}
+
+func buildTree(inorder []int, postorder []int) *TreeNode {
+	if len(inorder) == 0 || len(postorder) == 0 {
+		return nil
+	}
+	rootVal := postorder[len(postorder)-1]
+	root := &TreeNode{
+		Val: rootVal,
+	}
+	iLeft := []int{}
+	iRight := []int{}
+	pLeft := []int{}
+	pRight := []int{}
+	for k, v := range inorder {
+		if v == rootVal {
+			iLeft = inorder[:k]
+			iRight = inorder[k+1:]
+
+			pLeft = postorder[:len(iLeft)]
+			pRight = postorder[len(pLeft) : len(postorder)-1]
+		}
+	}
+	root.Left = buildTree(iLeft, pLeft)
+	root.Right = buildTree(iRight, pRight)
+
+	return root
+}
+
+func buildTree2(preorder []int, inorder []int) *TreeNode {
+	if len(inorder) == 0 || len(preorder) == 0 {
+		return nil
+	}
+	rootVal := preorder[0]
+	root := &TreeNode{
+		Val: rootVal,
+	}
+	iLeft := []int{}
+	iRight := []int{}
+	pLeft := []int{}
+	pRight := []int{}
+	for k, v := range inorder {
+		if v == rootVal {
+			iLeft = inorder[:k]
+			iRight = inorder[k+1:]
+
+			pLeft = preorder[1 : len(iLeft)+1]
+			pRight = preorder[len(pLeft)+1:]
+		}
+	}
+
+	root.Left = buildTree(pLeft, iLeft)
+	root.Right = buildTree(pRight, iRight)
+
+	return root
+}
+
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	return nil
 }

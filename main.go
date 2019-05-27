@@ -3,5 +3,5 @@ package main
 import "log"
 
 func main() {
-	log.Println(levelOrder(&rootNode))
+	log.Println(lowestCommonAncestor(&rootNode, &treenode4, &treenode7))
 }

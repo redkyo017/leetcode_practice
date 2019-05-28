@@ -4,7 +4,6 @@ import "log"
 
 type MyCircularQueue struct {
 	Size  int
-	Len   int
 	Head  int
 	Tail  int
 	Queue []int
@@ -14,7 +13,6 @@ type MyCircularQueue struct {
 func Constructor(k int) MyCircularQueue {
 	q := MyCircularQueue{
 		Size:  k,
-		Len:   0,
 		Head:  0,
 		Tail:  0,
 		Queue: make([]int, k),
@@ -31,8 +29,7 @@ func (this *MyCircularQueue) EnQueue(value int) bool {
 	this.Queue[this.Tail] = value
 
 	this.Tail = (this.Tail + 1) % this.Size
-	// log.Printf("con co be be :%+v\n", this)
-	this.Len++
+	log.Printf("con co be be :%+v\n", this)
 	return true
 }
 
@@ -43,8 +40,7 @@ func (this *MyCircularQueue) DeQueue() bool {
 		return false
 	}
 	this.Head = (this.Head + 1) % this.Size
-	// log.Printf("con heo :%+v\n", this)
-	this.Len--
+	log.Printf("con heo :%+v\n", this)
 	return true
 }
 
@@ -55,21 +51,18 @@ func (this *MyCircularQueue) Front() int {
 
 /** Get the last item from the queue. */
 func (this *MyCircularQueue) Rear() int {
-	log.Printf("con co be be :%+v\n", this)
 	return this.Queue[this.Tail]
 }
 
 /** Checks whether the circular queue is empty or not. */
 func (this *MyCircularQueue) IsEmpty() bool {
-	// return this.Head == this.Tail
-	return this.Len == 0
+	return this.Head == this.Tail
 }
 
 /** Checks whether the circular queue is full or not. */
 func (this *MyCircularQueue) IsFull() bool {
 
-	// return this.Head == (this.Tail+1)%this.Size
-	return this.Len == this.Size
+	return this.Head == (this.Tail+1)%this.Size
 }
 
 func init() {

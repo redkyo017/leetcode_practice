@@ -79,15 +79,14 @@ func (this *MyCircularQueue) Rear() int {
 /** Checks whether the circular queue is empty or not. */
 func (this *MyCircularQueue) IsEmpty() bool {
 	log.Printf("IS EMPTY: %+v\n", this)
-	// return this.Head == this.Tail
-	// return this.Head == this.Tail && this.Tail != 0
-	return this.Len == 0
+	// return this.Len == 0
+	return this.Head == -1
 }
 
 /** Checks whether the circular queue is full or not. */
 func (this *MyCircularQueue) IsFull() bool {
-	// return this.Head == (this.Tail+1)%this.Size
-	return this.Len == this.Size
+	return this.Head == (this.Tail+1)%this.Size
+	// return this.Len == this.Size
 }
 
 func init() {
@@ -113,20 +112,20 @@ func init() {
 	// param_9 := obj.DeQueue()
 	// param_10 := obj.DeQueue()
 	// param_11 := obj.DeQueue()
-	obj := Constructor(2)
-	param_1 := obj.EnQueue(4)
-	param_2 := obj.Rear()
-	param_3 := obj.EnQueue(9)
-	param_4 := obj.DeQueue()
-	param_5 := obj.Front()
-	param_6 := obj.DeQueue()
-	param_7 := obj.DeQueue()
-	param_8 := obj.IsEmpty()
-	param_9 := obj.DeQueue()
-	param_10 := obj.EnQueue(6)
-	param_11 := obj.EnQueue(4)
+	// obj := Constructor(2)
+	// param_1 := obj.EnQueue(4)
+	// param_2 := obj.Rear()
+	// param_3 := obj.EnQueue(9)
+	// param_4 := obj.DeQueue()
+	// param_5 := obj.Front()
+	// param_6 := obj.DeQueue()
+	// param_7 := obj.DeQueue()
+	// param_8 := obj.IsEmpty()
+	// param_9 := obj.DeQueue()
+	// param_10 := obj.EnQueue(6)
+	// param_11 := obj.EnQueue(4)
 
-	log.Println(obj, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10, param_11)
+	// log.Println(obj, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10, param_11)
 }
 
 // ["MyCircularQueue","enQueue","enQueue","enQueue","enQueue","Rear","isFull","deQueue","enQueue","Rear"]

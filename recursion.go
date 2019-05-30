@@ -49,6 +49,13 @@ func generate(numRows int) [][]int {
 		}
 		r := make([]int, i)
 		result = append(result, r)
+		for j := 1; j <= i; j++ {
+			if j == 1 || j == i {
+				result[i][j] = 1
+			} else {
+				result[i][j] = result[i-1][j-1] + result[i-1][j+1]
+			}
+		}
 	}
 	log.Println(result)
 	return result

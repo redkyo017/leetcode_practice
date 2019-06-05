@@ -1,6 +1,9 @@
 package main
 
-import "log"
+import (
+	"log"
+	"math"
+)
 
 /**
  * Definition for singly-linked list.
@@ -168,6 +171,72 @@ func climbStairs(n int) int {
 	return 0
 }
 
+func myPow(x float64, n int) float64 {
+	if n == 0 || x == 1 {
+		return 1
+	}
+	if n == 1 {
+		return x
+	}
+	if x == 0 {
+		return 0
+	}
+
+	neg := false
+	// o := x
+	if n < 0 {
+		n = int(math.Abs(float64(n)))
+		neg = true
+	}
+	// for i := 2; i <= n; i++ {
+	// 	x *= o
+	// }
+	var result float64 = 1
+	for n > 0 {
+		if n%2 == 0 {
+			x *= x
+			n /= 2
+		} else {
+			n = n - 1
+			result = result * x
+			n /= 2
+			x *= x
+		}
+	}
+	if neg {
+		result = 1 / result
+	}
+	return result
+}
+
+var lnodeR6 = ListNode{4, nil}
+var lnodeR5 = ListNode{3, &lnodeR6}
+var lnodeR4 = ListNode{1, &lnodeR5}
+
+var lnodeR3 = ListNode{4, nil}
+var lnodeR2 = ListNode{2, &lnodeR3}
+var lnodeR1 = ListNode{1, &lnodeR2}
+
+func mergeTwoListsRecursion(l1 *ListNode, l2 *ListNode) *ListNode {
+	result := &ListNode{}
+
+	if l1 == nil {
+		return l2
+	}
+	if l2 == nil {
+		return l1
+	}
+
+	return result
+}
+
 func init() {
-	log.Println(climbStairs(6))
+	// 1.00000 -2147483648
+	// log.Println(myPow(2.00000, 10))
+
+	node := mergeTwoListsRecursion(&lnodeR1, &lnodeR4)
+	for node != nil {
+		log.Println(node.Val)
+		node = node.Next
+	}
 }

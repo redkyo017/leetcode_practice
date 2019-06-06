@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"math"
+	"strconv"
 )
 
 /**
@@ -226,17 +227,62 @@ func mergeTwoListsRecursion(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l2 == nil {
 		return l1
 	}
+	if l1.Val > l2.Val {
+		result = l2
+		result.Next = mergeTwoListsRecursion(l1, l2.Next)
+	} else {
+		result = l1
+		result.Next = mergeTwoListsRecursion(l1.Next, l2)
+	}
 
 	return result
+}
+
+func buildN(Ns string, N int) string {
+	if N == 0 {
+		return Ns
+	}
+	if len(Ns) == 0 {
+		return "0"
+	}
+
+	for i, c := range Ns {
+		if string(c) == "1" {
+			Ns = string(Ns[:i]) + "10" + string(Ns[i+1:])
+		}
+		if string(c) == "0" {
+			Ns = string(Ns[:i]) + "01" + string(Ns[i+1:])
+		}
+	}
+	Ns = buildN(Ns, N-1)
+
+	return Ns
+}
+
+func kthGrammar(N int, K int) int {
+	if N == 1 || K == 1 {
+		return 0
+	}
+	if K > int(math.Pow(2, float64(N-1))) {
+		return 0
+	}
+
+	str := buildN("", N)
+	log.Println(str)
+	res, _ := strconv.Atoi(string(str[K-1]))
+	log.Println(res)
+	return res
 }
 
 func init() {
 	// 1.00000 -2147483648
 	// log.Println(myPow(2.00000, 10))
 
-	node := mergeTwoListsRecursion(&lnodeR1, &lnodeR4)
-	for node != nil {
-		log.Println(node.Val)
-		node = node.Next
-	}
+	// node := mergeTwoListsRecursion(&lnodeR1, &lnodeR4)
+	// for node != nil {
+	// 	log.Println(node.Val)
+	// 	node = node.Next
+	// }
+
+	log.Println(kthGrammar(4, 4))
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"math"
-	"strconv"
 )
 
 /**
@@ -238,40 +237,22 @@ func mergeTwoListsRecursion(l1 *ListNode, l2 *ListNode) *ListNode {
 	return result
 }
 
-func buildN(Ns string, N int) string {
-	if N == 0 {
-		return Ns
-	}
-	if len(Ns) == 0 {
-		return "0"
-	}
-
-	for i, c := range Ns {
-		if string(c) == "1" {
-			Ns = string(Ns[:i]) + "10" + string(Ns[i+1:])
-		}
-		if string(c) == "0" {
-			Ns = string(Ns[:i]) + "01" + string(Ns[i+1:])
-		}
-	}
-	Ns = buildN(Ns, N-1)
-
-	return Ns
-}
-
 func kthGrammar(N int, K int) int {
-	if N == 1 || K == 1 {
+	if N == 1 {
 		return 0
 	}
-	if K > int(math.Pow(2, float64(N-1))) {
-		return 0
+	if K%2 == 0 {
+		n := kthGrammar(N-1, K/2)
+		if n == 0 {
+			return 1
+		} else {
+			return 0
+		}
+	} else {
+		return kthGrammar(N-1, (K+1)/2)
 	}
 
-	str := buildN("", N)
-	log.Println(str)
-	res, _ := strconv.Atoi(string(str[K-1]))
-	log.Println(res)
-	return res
+	return 0
 }
 
 func init() {
@@ -284,5 +265,5 @@ func init() {
 	// 	node = node.Next
 	// }
 
-	log.Println(kthGrammar(4, 4))
+	log.Println(kthGrammar(4, 8))
 }

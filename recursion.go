@@ -258,15 +258,15 @@ func kthGrammar(N int, K int) int {
 func generateNodeTree(start int, end int) []*TreeNode {
 	list := []*TreeNode{}
 	if start > end {
-		return nil
+		return list
 	}
 	for i := start; i <= end; i++ {
 		left := generateNodeTree(start, i-1)
 		right := generateNodeTree(i+1, end)
-
 		for _, l := range left {
 			for _, r := range right {
-				list = append(list, &TreeNode{i, l, r})
+				node := &TreeNode{i, l, r}
+				list = append(list, node)
 			}
 		}
 	}

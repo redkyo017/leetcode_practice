@@ -255,6 +255,11 @@ func kthGrammar(N int, K int) int {
 	return 0
 }
 
+func generateTrees(n int) []*TreeNode {
+	result := []*TreeNode{}
+	return result
+}
+
 func init() {
 	// 1.00000 -2147483648
 	// log.Println(myPow(2.00000, 10))
@@ -265,5 +270,5 @@ func init() {
 	// 	node = node.Next
 	// }
 
-	log.Println(kthGrammar(4, 8))
+	log.Println(generateTrees(8))
 }

@@ -292,8 +292,8 @@ func init() {
 	// 	log.Println(node.Val)
 	// 	node = node.Next
 	// }
-	list := generateTrees(3)
-	for _, n := range list {
-		log.Println(n)
-	}
+	// list := generateTrees(3)
+	// for _, n := range list {
+	// 	log.Println(n)
+	// }
 }

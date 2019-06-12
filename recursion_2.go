@@ -56,12 +56,12 @@ func isValidBST(root *TreeNode) bool {
 	var stack []*TreeNode
 	var inorder int = MIN
 	for len(stack) >= 0 && root != nil {
-		log.Println("con co")
 		for root != nil {
 			stack = append(stack, root)
 			root = root.Left
 		}
 		root := stack[0]
+		log.Println("con co", root, root.Val, inorder)
 		stack = stack[1:]
 		if root.Val <= inorder {
 			log.Println(root, root.Val, inorder)
@@ -85,6 +85,50 @@ var tNode4 = TreeNode{15, &tNode3, &tNode6}
 var tNode5 = TreeNode{10, &tNode1, &tNode4}
 var tNode6 = TreeNode{20, nil, nil}
 
+func searchMatrix(matrix [][]int, target int) bool {
+	if len(matrix) <= 0 {
+		return false
+	}
+	// row_num := len(matrix)
+	// col_num := len(matrix[0])
+	// start, end := 0, row_num*col_num-1
+
+	// for start <= end {
+	// 	mid := (start + end) / 2
+	// 	mid_value := matrix[mid/col_num][mid%col_num]
+	// 	log.Println("con co", mid_value, mid, col_num, mid/col_num, mid%col_num)
+	// 	if mid_value == target {
+	// 		return true
+	// 	} else if mid_value < target {
+	// 		start = mid + 1
+	// 	} else {
+	// 		end = mid - 1
+	// 	}
+	// }
+	row, col := 0, len(matrix[0])-1
+	for col >= 0 && row <= len(matrix)-1 {
+		if target == matrix[row][col] {
+			return true
+		} else if target < matrix[row][col] {
+			col--
+		} else {
+			row++
+		}
+	}
+	return false
+}
+
 func init() {
-	log.Println(isValidBST(&tNode5))
+	matrix1 := [][]int{
+		[]int{1, 4, 7, 11, 15},
+		[]int{2, 5, 8, 12, 19},
+		[]int{3, 6, 9, 16, 22},
+		[]int{10, 13, 14, 17, 24},
+		[]int{18, 21, 23, 26, 30},
+	}
+	// matrix2 := [][]int{
+	// 	[]int{1, 4},
+	// 	[]int{2, 5},
+	// }
+	log.Println(searchMatrix(matrix1, 20))
 }

@@ -97,7 +97,7 @@ func searchMatrix(matrix [][]int, target int) bool {
 	// 	mid := (start + end) / 2
 	// 	mid_value := matrix[mid/col_num][mid%col_num]
 	// 	log.Println("con co", mid_value, mid, col_num, mid/col_num, mid%col_num)
-	// 	if mid_value == target {
+
 	// 		return true
 	// 	} else if mid_value < target {
 	// 		start = mid + 1
@@ -118,17 +118,23 @@ func searchMatrix(matrix [][]int, target int) bool {
 	return false
 }
 
+func totalNQueens(n int) int {
+	return 0
+}
+
 func init() {
-	matrix1 := [][]int{
-		[]int{1, 4, 7, 11, 15},
-		[]int{2, 5, 8, 12, 19},
-		[]int{3, 6, 9, 16, 22},
-		[]int{10, 13, 14, 17, 24},
-		[]int{18, 21, 23, 26, 30},
-	}
+	// matrix1 := [][]int{
+	// 	[]int{1, 4, 7, 11, 15},
+	// 	[]int{2, 5, 8, 12, 19},
+	// 	[]int{3, 6, 9, 16, 22},
+	// 	[]int{10, 13, 14, 17, 24},
+	// 	[]int{18, 21, 23, 26, 30},
+	// }
 	// matrix2 := [][]int{
 	// 	[]int{1, 4},
 	// 	[]int{2, 5},
 	// }
-	log.Println(searchMatrix(matrix1, 20))
+	// log.Println(searchMatrix(matrix1, 20))
+
+	log.Println(totalNQueens(8))
 }

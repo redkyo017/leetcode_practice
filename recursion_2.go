@@ -118,8 +118,68 @@ func searchMatrix(matrix [][]int, target int) bool {
 	return false
 }
 
+func hasMajorDiagonalConlict(board [][]int, row, col int) bool {
+	if len(board) <= 0 {
+		return false
+	}
+	for row >= 0 && col >= 0 {
+		log.Println("najor", row, col)
+		if board[row][col] == 1 {
+			return true
+		}
+		row--
+		col--
+	}
+	return false
+}
+func hasMinorDiagonalConlict(board [][]int, row, col int) bool {
+	if len(board) <= 0 {
+		return false
+	}
+	for row >= 0 && col >= 0 {
+		log.Println("minor", row, col)
+		if board[row][col] == 1 {
+			return true
+		}
+		row--
+		col++
+	}
+	return false
+}
+
+func countNQueens(board [][]int, cols []int, row, count int) int {
+	if len(cols) == 0 {
+		count++
+		return count
+	} else {
+		for i := 0; i < len(cols); i++ {
+			// for i, col := range cols {
+			col := cols[i]
+			log.Println("con co be be:", col)
+			if !hasMajorDiagonalConlict(board, row, col) && !hasMinorDiagonalConlict(board, row, col) {
+				cols = append(cols[:i], cols[i+1:]...)
+				board[row][col] = 1
+				count = countNQueens(board, cols, row+1, count)
+				board[row][col] = 0
+			}
+		}
+	}
+	return count
+}
+
 func totalNQueens(n int) int {
-	return 0
+	board := make([][]int, n)
+	cols := make([]int, n)
+	for i, _ := range cols {
+		cols[i] = i
+	}
+	log.Println(cols)
+	for i, _ := range board {
+		board[i] = make([]int, n)
+	}
+
+	log.Println(board)
+	return countNQueens(board, cols, 0, 0)
 }
 
 func init() {
